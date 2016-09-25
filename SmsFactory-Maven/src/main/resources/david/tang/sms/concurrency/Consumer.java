@@ -19,7 +19,7 @@ public class Consumer extends Thread {
 			Request request = null;
 			synchronized (buffer) {
 				while (buffer.isEmpty()) {
-					System.out.println("Queue is empty," + "Consumer thread is waiting" + " for producer thread to put something in queue");
+//					System.out.println("Queue is empty," + "Consumer thread is waiting" + " for producer thread to put something in queue");
 					try {
 						buffer.wait();
 					}

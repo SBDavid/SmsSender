@@ -25,7 +25,7 @@ public class Producer{
 			synchronized (buffer) {
 				 while (buffer.size() == maxBufferSize) {
 					 try {
-						 System.out.println("buffer is full, " + "Producer thread waiting for " + "consumer to take something from buffer"); 
+//						 System.out.println("buffer is full, " + "Producer thread waiting for " + "consumer to take something from buffer"); 
 						 buffer.wait(sendingTimeOut); 
 					 }
 					 catch (Exception ex) { 
