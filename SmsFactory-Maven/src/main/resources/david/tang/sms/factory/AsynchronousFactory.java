@@ -50,7 +50,7 @@ public class AsynchronousFactory {
 	
 	private static int sendingTimeOut = 30000;
 	
-	public static void init(String sendName, String configPath, NormalLoggerI loggerI) throws Exception {
+	public static void init(String senderName, String configPath, NormalLoggerI loggerI) throws Exception {
 		
 		if (loggerI != null ) {
 			logger = loggerI;
@@ -63,7 +63,7 @@ public class AsynchronousFactory {
 			root = jdomDoc.getRootElement();
 		}
 		
-		controller = loadController(sendName);
+		controller = loadController(senderName);
 		
 		consumerAmount = loadConsumerAmount();
 		
