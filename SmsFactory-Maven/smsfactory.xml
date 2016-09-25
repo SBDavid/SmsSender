@@ -1,0 +1,27 @@
+<smsfactory>
+    <asynchronous>
+        <ComsumerAmount>5</ComsumerAmount>
+        <BufferSize>500</BufferSize>
+        <SendingTimeOut>10000</SendingTimeOut>
+    </asynchronous>
+	<controllers>
+		<controller name="test">
+			<sender type="main.resources.david.tang.sms.smgsender.test.TestSender">	
+			</sender>
+			<filter type="main.resources.david.tang.sms.numberfilter.WhiteListFilter">
+				<numbers>
+					<number>18121022433</number>
+				</numbers>
+			</filter>
+		</controller>
+		<controller name="normal">
+			<sender type="main.resources.david.tang.sms.smgsender.yunpian.YunPianSmsHandlerImpl">	
+			</sender>
+			<filter type="main.resources.david.tang.sms.numberfilter.BlackListFilter">
+				<numbers>
+					<number>18121022432</number>
+				</numbers>
+			</filter>
+		</controller>
+	</controllers>
+</smsfactory>
