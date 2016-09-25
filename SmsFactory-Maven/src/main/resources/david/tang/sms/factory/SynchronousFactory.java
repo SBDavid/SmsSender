@@ -2,8 +2,6 @@ package main.resources.david.tang.sms.factory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import main.resources.david.tang.sms.logger.ConsoleLogger;
 import main.resources.david.tang.sms.logger.NormalLoggerI;
@@ -18,29 +16,25 @@ import org.jdom2.input.SAXBuilder;
 public class SynchronousFactory {
 	private static NormalLoggerI logger = new ConsoleLogger();
 	
-	private static Map<String, SmsControler> controlers = new HashMap<String, SmsControler>();
-	
 	private static SAXBuilder builder = new SAXBuilder();
 	
 	private static Document jdomDoc = null;
 	
 	private static Element root;
-    
-	public static SmsControler getSmsControler(String name, String configPath, NormalLoggerI loggerI) throws Exception {
-		if (controlers.containsKey(name)) {
-			return controlers.get(name);
+	
+	private static SmsControler controller = null;
+	
+	public static boolean send(String type, String text, String mobile) {
+		try {
+			return controller.send(type, text, mobile);
 		}
-		else {
-			SmsControler controller = loadController(name, configPath, loggerI);
-			if (controller == null) {
-				throw new Exception("loadController return null");
-			}
-			controlers.put(name, loadController(name, configPath, loggerI));
-			return controlers.get(name);
+		catch (Exception e) {
+			logger.error(e.getMessage());
+			return false;
 		}
 	}
 	
-	private static SmsControler loadController(String name, String configPath, NormalLoggerI loggerI) throws JDOMException, IOException, Exception {
+	public static void init(String name, String configPath, NormalLoggerI loggerI) throws JDOMException, IOException, Exception {
 		
 		if (jdomDoc == null) {
 			jdomDoc = builder.build(new File(configPath));
@@ -85,8 +79,7 @@ public class SynchronousFactory {
 					.forEach(number -> filter.addNumber(number.getText()));
 			
 			// build a controller
-			SmsControler controller = new SmsControler(logger, sender, filter);
-			return controller;
+			controller = new SmsControler(logger, sender, filter);
 		}	
 		
 	}
