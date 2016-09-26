@@ -5,6 +5,7 @@ public class Request {
 	private String text;
 	private String mobile;
 	public Request() {
+		
 	}
 	public String getType() {
 		return type;
