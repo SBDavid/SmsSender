@@ -36,6 +36,16 @@ public class SynchronousFactory {
 		}
 	}
 	
+	/**
+	 * initiate the target SmsController
+	 * it should be called before any text sending
+	 * @param name the name of the sender to initialize, which is define in the xml file. eg. <controller name="normal">
+	 * @param configPath the absolute path of xml file
+	 * @param loggerI the customized logger class, null if you want to print log info on console.
+	 * @throws JDOMException
+	 * @throws IOException
+	 * @throws Exception
+	 */
 	public static void init(String name, String configPath, NormalLoggerI loggerI) throws JDOMException, IOException, Exception {
 		
 		if (jdomDoc == null) {
