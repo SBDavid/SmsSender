@@ -15,7 +15,10 @@
 			</filter>
 		</controller>
 		<controller name="normal">
-			<sender type="main.resources.david.tang.sms.smgsender.yunpian.YunPianSmsHandlerImpl">	
+			<sender type="main.resources.david.tang.sms.smgsender.yunpian.YunPianSmsHandlerImpl">
+				<params>
+					<param key="apikey" value="b1e4e308af4f31f9b4d8516ef12da1e9"/>
+				</params>
 			</sender>
 			<filter type="main.resources.david.tang.sms.numberfilter.BlackListFilter">
 				<numbers>

@@ -2,8 +2,10 @@ package main.resources.david.tang.sms.factory;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import main.resources.david.tang.sms.concurrency.Consumer;
 import main.resources.david.tang.sms.concurrency.Producer;
@@ -194,7 +196,14 @@ public class AsynchronousFactory {
 			// build a sender
 			String senderName = controllerNode.getChild("sender").getAttributeValue("type");
 			Class senderClassType = Class.forName(senderName);
-			SmsSenderBase sender = (SmsSenderBase)senderClassType.newInstance(); 
+			SmsSenderBase sender = (SmsSenderBase)senderClassType.newInstance();
+			Element paramsNode = controllerNode.getChild("sender").getChild("params");
+			if (paramsNode != null) {
+				Map<String, String> paramMap = new HashMap<String, String>();
+				paramsNode.getChildren("param").stream()
+					.forEach(p -> paramMap.put(p.getAttributeValue("key"), p.getAttributeValue("value")));
+				sender.init(paramMap);
+			}
 			sender.setLogger(logger);
 			
 			// build a filter
