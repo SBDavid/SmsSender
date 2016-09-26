@@ -74,7 +74,7 @@ public class AsynchronousFactory {
 		producer = new Producer(buffer, bufferSize, logger, sendingTimeOut);
 		
 		for (int i = 0; i < consumerAmount; i++) {
-			consumers.add(new Consumer(buffer, controller));
+			consumers.add(new Consumer(buffer, controller, logger));
 		}
 		
 		for (Consumer consumer : consumers) {
@@ -90,8 +90,8 @@ public class AsynchronousFactory {
 			request.setMobile(mobile);
 			return producer.add(request);
 		}
-		catch (Exception e) {
-			logger.error(e.getMessage());
+		catch (Exception ex) {
+			logger.exception(ex);
 			return false;
 		}
 	}
@@ -116,8 +116,8 @@ public class AsynchronousFactory {
 			}
 		}
 		catch(Exception ex) {
-			ex.printStackTrace();
 			logger.error("load consumer amount fail, return default amount 5");
+			logger.exception(ex);
 			return 5;
 		}
 	}
@@ -142,8 +142,8 @@ public class AsynchronousFactory {
 			}
 		}
 		catch(Exception ex) {
-			ex.printStackTrace();
 			logger.error("load buffer size fail, return default buffer size 5");
+			logger.exception(ex);
 			return 5;
 		}
 	}
@@ -168,8 +168,8 @@ public class AsynchronousFactory {
 			}
 		}
 		catch(Exception ex) {
-			ex.printStackTrace();
 			logger.error("load timeout fail, return default timeout 5");
+			logger.exception(ex);
 			return 5;
 		}
 	}

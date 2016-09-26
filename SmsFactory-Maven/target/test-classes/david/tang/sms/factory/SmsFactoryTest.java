@@ -1,6 +1,7 @@
 package test.resources.david.tang.sms.factory;
 
 import main.resources.david.tang.sms.factory.AsynchronousFactory;
+import main.resources.david.tang.sms.factory.SynchronousFactory;
 import main.resources.david.tang.sms.logger.ConsoleLogger;
 
 import org.junit.Before;
@@ -15,14 +16,14 @@ public class SmsFactoryTest {
 	@Test
 	public void testGetSmsControler() {
 		try {
-			AsynchronousFactory.init("test", "smsfactory.xml", new ConsoleLogger());
+			SynchronousFactory.init("test", "smsfactory.xml", new ConsoleLogger());
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
-		AsynchronousFactory.send("11", "test", "18121022433");
-		AsynchronousFactory.send("11", "test", "18121022433");
+		SynchronousFactory.send("11", "test", "18121022433");
+		SynchronousFactory.send("11", "test", "18121022433");
 		
 //		try {
 //			Thread.sleep(1);

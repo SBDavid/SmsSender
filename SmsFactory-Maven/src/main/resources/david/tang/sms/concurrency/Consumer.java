@@ -3,14 +3,17 @@ package main.resources.david.tang.sms.concurrency;
 import java.util.LinkedList;
 
 import main.resources.david.tang.sms.factory.SmsControler;
+import main.resources.david.tang.sms.logger.NormalLoggerI;
 
 public class Consumer extends Thread {
 	private LinkedList<Request> buffer = null;
 	private SmsControler controller;
+	private NormalLoggerI logger;
 	
-	public Consumer(LinkedList<Request> buffer, SmsControler controller) {
+	public Consumer(LinkedList<Request> buffer, SmsControler controller, NormalLoggerI logger) {
 		this.buffer = buffer;
 		this.controller = controller;
+		this.logger = logger;
 	}
 	
 	@Override 
@@ -19,12 +22,12 @@ public class Consumer extends Thread {
 			Request request = null;
 			synchronized (buffer) {
 				while (buffer.isEmpty()) {
-//					System.out.println("Queue is empty," + "Consumer thread is waiting" + " for producer thread to put something in queue");
+					logger.debug("Queue is empty, Consumer thread is waiting for producer thread to put something in queue");
 					try {
 						buffer.wait();
 					}
 					catch (Exception ex) {
-						System.out.println(ex.getMessage());
+						logger.exception(ex);
 					}
 				}
 				

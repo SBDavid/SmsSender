@@ -25,11 +25,11 @@ public class Producer{
 			synchronized (buffer) {
 				 while (buffer.size() == maxBufferSize) {
 					 try {
-//						 System.out.println("buffer is full, " + "Producer thread waiting for " + "consumer to take something from buffer"); 
+						 logger.debug("buffer is full, Producer thread waiting for consumer to take something from buffer");
 						 buffer.wait(sendingTimeOut); 
 					 }
 					 catch (Exception ex) { 
-						 System.out.println(ex.getMessage());
+						 logger.exception(ex);
 					 } 
 				 }
 				 
@@ -40,7 +40,7 @@ public class Producer{
 		}
 		catch (Exception ex) {
 			logger.error("Producer : fail to add request");
-			logger.error(ex.getMessage());
+			logger.exception(ex);
 			return false;
 		}
 	}

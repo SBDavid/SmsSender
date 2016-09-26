@@ -28,8 +28,8 @@ public class SynchronousFactory {
 		try {
 			return controller.send(type, text, mobile);
 		}
-		catch (Exception e) {
-			logger.error(e.getMessage());
+		catch (Exception ex) {
+			logger.exception(ex);
 			return false;
 		}
 	}
