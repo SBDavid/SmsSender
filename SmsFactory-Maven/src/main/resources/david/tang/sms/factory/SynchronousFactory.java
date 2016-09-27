@@ -2,6 +2,8 @@ package main.resources.david.tang.sms.factory;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import main.resources.david.tang.sms.logger.ConsoleLogger;
 import main.resources.david.tang.sms.logger.NormalLoggerI;
@@ -34,6 +36,16 @@ public class SynchronousFactory {
 		}
 	}
 	
+	/**
+	 * initiate the target SmsController
+	 * it should be called before any text sending
+	 * @param name the name of the sender to initialize, which is define in the xml file. eg. <controller name="normal">
+	 * @param configPath the absolute path of xml file
+	 * @param loggerI the customized logger class, null if you want to print log info on console.
+	 * @throws JDOMException
+	 * @throws IOException
+	 * @throws Exception
+	 */
 	public static void init(String name, String configPath, NormalLoggerI loggerI) throws JDOMException, IOException, Exception {
 		
 		if (jdomDoc == null) {
@@ -63,7 +75,14 @@ public class SynchronousFactory {
 			// build a sender
 			String senderName = controllerNode.getChild("sender").getAttributeValue("type");
 			Class senderClassType = Class.forName(senderName);
-			SmsSenderBase sender = (SmsSenderBase)senderClassType.newInstance(); 
+			SmsSenderBase sender = (SmsSenderBase)senderClassType.newInstance();
+			Element paramsNode = controllerNode.getChild("sender").getChild("params");
+			if (paramsNode != null) {
+				Map<String, String> paramMap = new HashMap<String, String>();
+				paramsNode.getChildren("param").stream()
+					.forEach(p -> paramMap.put(p.getAttributeValue("key"), p.getAttributeValue("value")));
+				sender.init(paramMap);
+			}
 			sender.setLogger(logger);
 			
 			// build a filter

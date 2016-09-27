@@ -20,6 +20,8 @@ import org.apache.http.util.EntityUtils;
 
 public class YunPianSmsHandlerImpl extends SmsSenderBase{
 	
+	private static String aipkey = null;
+	
 	public YunPianSmsHandlerImpl(){}
 	
 	private static class YunPianSmsHandlerImplHolder{
@@ -31,10 +33,21 @@ public class YunPianSmsHandlerImpl extends SmsSenderBase{
 	}
 	
 	@Override
+	public boolean init(Map<String, String> params) {
+		if (params.containsKey("apikey")) {
+			aipkey = params.get("apikey");
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	@Override
 	public synchronized boolean sendSms(String text, String mobile) {
 		try {
 	        Map<String, String> params = new HashMap<String, String>();
-	        params.put("apikey", Configure.APIKEY);
+	        params.put("apikey", aipkey);
 	        params.put("text", text);
 	        params.put("mobile", mobile);
 	        String returnResult = post(Configure.URI_SEND_SMS, params);

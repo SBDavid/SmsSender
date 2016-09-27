@@ -15,24 +15,7 @@ public class SmsFactoryTest {
 
 	@Test
 	public void testGetSmsControler() {
-		try {
-			SynchronousFactory.init("test", "smsfactory.xml", new ConsoleLogger());
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
-		SynchronousFactory.send("11", "test", "18121022433");
-		SynchronousFactory.send("11", "test", "18121022433");
-		
-//		try {
-//			Thread.sleep(1);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		System.out.println("main quit");
 		
 	}
 
