@@ -21,15 +21,6 @@ import org.jdom2.input.SAXBuilder;
 
 public class AsynchronousFactory {
 	
-	public static void main(String[] args) {
-		try {
-			AsynchronousFactory.init("test", "smsfactory.xml", new ConsoleLogger());
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}
-	
 	private static NormalLoggerI logger = new ConsoleLogger();
 	
 	private static SAXBuilder builder = new SAXBuilder();
