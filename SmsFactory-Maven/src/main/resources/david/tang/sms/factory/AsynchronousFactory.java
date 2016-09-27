@@ -1,6 +1,7 @@
 package main.resources.david.tang.sms.factory;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -17,6 +18,7 @@ import main.resources.david.tang.sms.smgsender.SmsSenderBase;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
+import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 public class AsynchronousFactory {
@@ -43,6 +45,16 @@ public class AsynchronousFactory {
 	
 	private static int sendingTimeOut = 30000;
 	
+	/**
+	 * initiate the target SmsController
+	 * it should be called before any text sending
+	 * @param senderName the name of the sender to initialize, which is define in the xml file. eg. <controller name="normal">
+	 * @param configPath the absolute path of xml file
+	 * @param loggerI the customized logger class, null if you want to print log info on console.
+	 * @throws JDOMException
+	 * @throws IOException
+	 * @throws Exception
+	 */
 	public static void init(String senderName, String configPath, NormalLoggerI loggerI) throws Exception {
 		
 		if (loggerI != null ) {
@@ -89,6 +101,12 @@ public class AsynchronousFactory {
 		}
 	}
 	
+	/**
+	 * load consumer amount from xml file
+	 * the amount should be great than 0 and less than 50, 
+	 * a large amount of consumer will use many machine resource
+	 * @return
+	 */
 	private static int loadConsumerAmount() {
 		try {
 			Element consumerAmountNode = root
@@ -97,7 +115,7 @@ public class AsynchronousFactory {
 			
 			int amount = Integer.parseInt(consumerAmountNode.getText());
 			if (amount < 0) {
-				logger.error("load consumer amount fail, amount is less than 5, return default amount 5");
+				logger.error("load consumer amount fail, amount is less than 0, return default amount 1");
 				return 1;
 			}
 			else if (amount > 50) {
@@ -109,12 +127,16 @@ public class AsynchronousFactory {
 			}
 		}
 		catch(Exception ex) {
-			logger.error("load consumer amount fail, return default amount 5");
+			logger.error("load consumer amount fail, return default amount 1");
 			logger.exception(ex);
-			return 5;
+			return 1;
 		}
 	}
 	
+	/**
+	 * load the size of queue
+	 * @return
+	 */
 	private static int loadBufferSize() {
 		try {
 			Element bufferSizeNode = root
