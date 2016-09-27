@@ -1,7 +1,7 @@
 <smsfactory>
     <asynchronous>
         <ComsumerAmount>5</ComsumerAmount>
-        <BufferSize>500</BufferSize>
+        <BufferSize>50</BufferSize>
         <SendingTimeOut>10000</SendingTimeOut>
     </asynchronous>
 	<controllers>
