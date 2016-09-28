@@ -1,28 +1,39 @@
 <smsfactory>
+	<!-- 整个配置文件分为两部分 1)异步短信发送资源配置 2)发信平台的配置 -->
+	
+    <!-- 异步短信发送资源配置 -->
     <asynchronous>
+        <!-- 并行短信发送线程的数量 -->
         <ComsumerAmount>5</ComsumerAmount>
+        <!-- 发信请求的等待缓存容量 -->
         <BufferSize>50</BufferSize>
+        <!-- 等待缓存的超时设置，如果buffer始终为满的状态，则等待等待一定时间后返回错误消息 -->
         <SendingTimeOut>10000</SendingTimeOut>
     </asynchronous>
+    
+	<!-- 发信平台的配置，可以同时配置多个发信平台，调用init方法是写明使用哪一个平台 -->
 	<controllers>
+	    <!-- 短信发送控制器名称，name的值在构造方法中指定 -->
 		<controller name="test">
+			<!-- 短信发送控制器的实现类 -->
 			<sender type="main.resources.david.tang.sms.smgsender.test.TestSender">	
 			</sender>
+			<!-- 短信号码过滤器的实现类 -->
 			<filter type="main.resources.david.tang.sms.numberfilter.WhiteListFilter">
 				<numbers>
-					<number>12345678900</number>
+					<number>18121022433</number>
 				</numbers>
 			</filter>
 		</controller>
 		<controller name="normal">
 			<sender type="main.resources.david.tang.sms.smgsender.yunpian.YunPianSmsHandlerImpl">
 				<params>
-					<param key="apikey" value="xxx"/>
+					<param key="apikey" value="b1e4e308af4f31f9b4d8516ef12da1e9"/>
 				</params>
 			</sender>
 			<filter type="main.resources.david.tang.sms.numberfilter.BlackListFilter">
 				<numbers>
-					<number>12345678900</number>
+					<number>18121022432</number>
 				</numbers>
 			</filter>
 		</controller>
