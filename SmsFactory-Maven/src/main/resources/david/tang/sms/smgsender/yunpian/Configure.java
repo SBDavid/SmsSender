@@ -3,7 +3,7 @@ package main.resources.david.tang.sms.smgsender.yunpian;
 public class Configure {
 
 	//修改为您的apikey.apikey可在官网（http://www.yuanpian.com)登录后获取
-		public static final String APIKEY = "b1e4e308af4f31f9b4d8516ef12da1e9";
+		public static final String APIKEY = "XXX";
 	    
 	    //查账户信息URL
 		public static final String URI_GET_USER_INFO = "https://sms.yunpian.com/v1/user/get.json";
@@ -24,6 +24,6 @@ public class Configure {
 		public static final String ENCODING = "UTF-8";
 		
 		//短信前置签名
-		public static final String PRE_SIGN = "【长投网】";
+		public static final String PRE_SIGN = "【XXX】";
 
 }

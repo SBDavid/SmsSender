@@ -10,19 +10,19 @@
 			</sender>
 			<filter type="main.resources.david.tang.sms.numberfilter.WhiteListFilter">
 				<numbers>
-					<number>18121022433</number>
+					<number>12345678900</number>
 				</numbers>
 			</filter>
 		</controller>
 		<controller name="normal">
 			<sender type="main.resources.david.tang.sms.smgsender.yunpian.YunPianSmsHandlerImpl">
 				<params>
-					<param key="apikey" value="b1e4e308af4f31f9b4d8516ef12da1e9"/>
+					<param key="apikey" value="xxx"/>
 				</params>
 			</sender>
 			<filter type="main.resources.david.tang.sms.numberfilter.BlackListFilter">
 				<numbers>
-					<number>18121022432</number>
+					<number>12345678900</number>
 				</numbers>
 			</filter>
 		</controller>
