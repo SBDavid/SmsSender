@@ -16,6 +16,7 @@ import main.resources.david.tang.sms.logger.NormalLoggerI;
 import main.resources.david.tang.sms.numberfilter.NumberFilterBase;
 import main.resources.david.tang.sms.smgsender.SmsSenderBase;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -220,17 +221,24 @@ public class AsynchronousFactory {
 			sender.setLogger(logger);
 			
 			// build a filter
+			NumberFilterBase filter = null;
 			String filterName = controllerNode.getChild("filter").getAttributeValue("type");
-			Class filterClassType = Class.forName(filterName);
-			NumberFilterBase filter = (NumberFilterBase)filterClassType.newInstance();
-			filter.setLogger(logger);
-			controllerNode
-					.getChild("filter")
-					.getChild("numbers")
-					.getChildren("number")
-					.stream()
-					.forEach(number -> filter.addNumber(number.getText()));
-			
+			if (StringUtils.isEmpty(filterName)) {
+				
+				Class filterClassType = Class.forName(filterName);
+				filter = (NumberFilterBase)filterClassType.newInstance();
+				filter.setLogger(logger);
+				List<Element> numbers = controllerNode
+						.getChild("filter")
+						.getChild("numbers")
+						.getChildren("number");
+				for (Element number : numbers) {
+					filter.addNumber(number.getText());
+				}
+			}
+			else {
+				filter = null;
+			}
 			// build a controller
 			SmsControler controller = new SmsControler(logger, sender, filter);
 			return controller;

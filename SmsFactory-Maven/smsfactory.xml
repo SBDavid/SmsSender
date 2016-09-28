@@ -18,7 +18,7 @@
 			<!-- 短信发送控制器的实现类 -->
 			<sender type="main.resources.david.tang.sms.smgsender.test.TestSender">	
 			</sender>
-			<!-- 短信号码过滤器的实现类 -->
+			<!-- 短信号码过滤器的实现类，如果不想使用任何过滤器，则可以删除filter节点 -->
 			<filter type="main.resources.david.tang.sms.numberfilter.WhiteListFilter">
 				<numbers>
 					<number>18121022433</number>

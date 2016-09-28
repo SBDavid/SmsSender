@@ -46,7 +46,7 @@ public class SmsControler{
 			return false;
 		}
 		
-		if (!filter.Filter(mobile)) {
+		if (filter != null && !filter.Filter(mobile)) {
 			logger.sendRecord(type, mobile, text, SmsSendFail);
 			return false;
 		}
