@@ -16,17 +16,17 @@
 	    <!-- 短信发送控制器名称，name的值在构造方法中指定 -->
 		<controller name="test">
 			<!-- 短信发送控制器的实现类 -->
-			<sender type="main.resources.david.tang.sms.smgsender.test.TestSender">	
+			<sender type="sms.smgsender.test.TestSender">	
 			</sender>
 			<!-- 短信号码过滤器的实现类，如果不想使用任何过滤器，则可以删除filter节点 -->
-			<filter type="main.resources.david.tang.sms.numberfilter.WhiteListFilter">
+			<filter type="sms.numberfilter.WhiteListFilter">
 				<numbers>
 					<number>18121022433</number>
 				</numbers>
 			</filter>
 		</controller>
 		<controller name="normal">
-			<sender type="main.resources.david.tang.sms.smgsender.yunpian.YunPianSmsHandlerImpl">
+			<sender type="sms.smgsender.yunpian.YunPianSmsHandlerImpl">
 				<params>
 					<param key="apikey" value="b1e4e308af4f31f9b4d8516ef12da1e9"/>
 				</params>
