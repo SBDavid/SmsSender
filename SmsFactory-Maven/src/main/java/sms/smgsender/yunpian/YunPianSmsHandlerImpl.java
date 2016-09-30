@@ -45,7 +45,7 @@ public class YunPianSmsHandlerImpl extends SmsSenderBase{
 	}
 	
 	@Override
-	public synchronized boolean sendSms(String text, String mobile) {
+	public boolean sendSms(String text, String mobile) {
 		try {
 	        Map<String, String> params = new HashMap<String, String>();
 	        params.put("apikey", aipkey);
@@ -70,7 +70,7 @@ public class YunPianSmsHandlerImpl extends SmsSenderBase{
 		}
     }
 	
-	public synchronized String post(String url, Map<String, String> paramsMap) {
+	public String post(String url, Map<String, String> paramsMap) {
 		
         CloseableHttpClient client = HttpClients.createDefault();
         String responseText = "";
