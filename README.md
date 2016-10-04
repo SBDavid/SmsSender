@@ -44,7 +44,7 @@ public class AsynchronousDemo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		// the send method is thread safe, so it could be called from multiple thread without further synchronization.
 		AsynchronousFactory.send("type", "msgContent", "18121022433");
 		
 		// prevent child thread be killed by the ending of main thread
