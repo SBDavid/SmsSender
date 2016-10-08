@@ -107,3 +107,4 @@ public class AsynchronousDemo {
 3. logger : 日志打印接口
 4. factory : 发送的初始化和配置加载
 5. concurrency : 多线程控制
+6.
