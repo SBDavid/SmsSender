@@ -9,22 +9,21 @@ SmsSender是一个配置化的短信发送工具类，它具备同步和异步�
 - 缺点：速度慢，如果一个方法内循环发送60条短信，每天耗时1S,那么一分钟后方法才能返回
 - 使用范围：触发式短信，例如发送验证码短信
 ```java
-package test.resources.david.tang.sms.factory.demo;
+package demo;
 
-import main.resources.david.tang.sms.factory.SynchronousFactory;
+import sms.factory.SynchronousFactory;
 
 public class SynchronousDemo {
-	public static void main(String[] args) {
-		try {
-			SynchronousFactory.init("test", "smsfactory.xml", null);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		SynchronousFactory.send("type", "msgContent", "18121022433");
-	}
+    public static void main(String[] args) {
+        try {
+        	SynchronousFactory.init("test", "smsfactory.xml", null);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        SynchronousFactory.send("type", "msgContent", "18121022433");
+    }
 }
-
 ```
 
 #### 以异步方式发送
@@ -32,29 +31,29 @@ public class SynchronousDemo {
 - 缺点：无法即使得到发送的反馈，但是可以把发送结果写入数据库方便日后复查
 - 使用方位：后台批量短信
 ```java
-package test.resources.david.tang.sms.factory.demo;
+package demo;
 
-import main.resources.david.tang.sms.factory.AsynchronousFactory;
+import sms.factory.*;
 
 public class AsynchronousDemo {
-	public static void main(String[] args) {
-		try {
-			AsynchronousFactory.init("test", "smsfactory.xml", null);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// the send method is thread safe, so it could be called from multiple thread without further synchronization.
-		AsynchronousFactory.send("type", "msgContent", "18121022433");
-		
-		// prevent child thread be killed by the ending of main thread
-		try {
-			Thread.sleep(1000000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+    public static void main(String[] args) {
+        try {
+            AsynchronousFactory.init("test", "smsfactory.xml", null);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        AsynchronousFactory.send("type", "msgContent", "18121022433");
+
+        // prevent child thread be killed by the ending of main thread
+        try {
+            Thread.sleep(1000000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 }
 ```
 ### 配置文件说明
