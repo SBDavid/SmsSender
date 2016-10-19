@@ -47,6 +47,38 @@ public class AsynchronousFactory {
 	private static int sendingTimeOut = 30000;
 	
 	/**
+	 * stop all consumer threads without omit any Sms sending
+	 */
+	public static void stopGracefully() {
+		for (Consumer consumer : consumers) {
+			consumer.interrupt();
+		}
+		
+		boolean isAnyConsumerRunning = false;
+		
+		while(true) {
+			for (Consumer consumer : consumers) {
+				if (consumer.isRunning()) {
+					isAnyConsumerRunning = true;
+				}
+			}
+			
+			if (!isAnyConsumerRunning) {
+				logger.info("Consumer threads are gracefully stopded");
+				return;
+			}
+			else {
+				isAnyConsumerRunning = false;
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					logger.exception(e);
+				}
+			}
+		}
+	}
+	
+	/**
 	 * initiate the target SmsController
 	 * it should be called before any text sending
 	 * @param senderName the name of the sender to initialize, which is define in the xml file. eg. <controller name="normal">
@@ -78,6 +110,10 @@ public class AsynchronousFactory {
 		sendingTimeOut = loadSendingTimeOut();
 		
 		producer = new Producer(buffer, bufferSize, logger, sendingTimeOut);
+		
+		stopGracefully();
+		
+		consumers.clear();
 		
 		for (int i = 0; i < consumerAmount; i++) {
 			consumers.add(new Consumer(buffer, controller, logger));

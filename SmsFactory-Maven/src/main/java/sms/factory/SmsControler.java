@@ -38,6 +38,7 @@ public class SmsControler{
 	 * @param text the content of sms text
 	 * @param mobile target phone number
 	 * @return
+	 * @throws InterruptedException 
 	 */
 	public boolean send(String type,String text, String mobile) {
 		

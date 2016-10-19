@@ -4,7 +4,7 @@
     <!-- 异步短信发送资源配置 -->
     <asynchronous>
         <!-- 并行短信发送线程的数量 -->
-        <ComsumerAmount>5</ComsumerAmount>
+        <ComsumerAmount>2</ComsumerAmount>
         <!-- 发信请求的等待缓存容量 -->
         <BufferSize>50</BufferSize>
         <!-- 等待缓存的超时设置，如果buffer始终为满的状态，则等待等待一定时间后返回错误消息 -->
