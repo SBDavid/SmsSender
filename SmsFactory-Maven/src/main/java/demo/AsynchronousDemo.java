@@ -5,12 +5,12 @@ import sms.factory.*;
 public class AsynchronousDemo {
     public static void main(String[] args) {
         try {
-            AsynchronousFactory.init("test", "smsfactory.xml", null);
-            AsynchronousFactory.init("test", "smsfactory.xml", null);
+//            AsynchronousFactory.init("test", "smsfactory.xml", null);
+//            AsynchronousFactory.init("test", "smsfactory.xml", null);
             for (int i = 0; i < 1; i++) {
             	 AsynchronousFactory.send("type", "msgContent", "18121022433");
             }
-            Thread.sleep(15000);
+            Thread.sleep(1500);
             AsynchronousFactory.stopGracefully();
         } catch (Exception e) {
             // TODO Auto-generated catch block

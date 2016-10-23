@@ -38,6 +38,8 @@ public class AsynchronousFactory {
 	
 	private static List<Consumer> consumers = new ArrayList<Consumer>();
 	
+	private static volatile boolean isServiceStopped;
+	
 	private static LinkedList<Request> buffer = new LinkedList<Request>();
 	
 	private static int consumerAmount = 5;
@@ -50,6 +52,11 @@ public class AsynchronousFactory {
 	 * stop all consumer threads without omit any Sms sending
 	 */
 	public static void stopGracefully() {
+		
+		if (!isServiceStopped) {
+			return;
+		}
+		
 		for (Consumer consumer : consumers) {
 			consumer.interrupt();
 		}
@@ -111,6 +118,8 @@ public class AsynchronousFactory {
 		
 		producer = new Producer(buffer, bufferSize, logger, sendingTimeOut);
 		
+		isServiceStopped = false;
+		
 		stopGracefully();
 		
 		consumers.clear();
@@ -126,6 +135,12 @@ public class AsynchronousFactory {
 	
 	public static boolean send(String type, String text, String mobile) {
 		try {
+			
+			if (!isServiceStopped) {
+				logger.error("AsynchronousFactory is stopped");
+				return false;
+			}
+			
 			Request request = new Request();
 			request.setText(text);
 			request.setType(type);
